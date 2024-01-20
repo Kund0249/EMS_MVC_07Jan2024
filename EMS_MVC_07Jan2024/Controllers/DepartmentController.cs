@@ -62,5 +62,8 @@ namespace EMS_MVC_07Jan2024.Controllers
             var data = _repository.GetDepartments;
             return View(data);
         }
+
+      
     }
+
 }

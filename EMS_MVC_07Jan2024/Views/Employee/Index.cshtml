@@ -1,0 +1,68 @@
+﻿@model List<EMS_MVC_07Jan2024.Models.Employee.EmployeeModel>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div> 
+        <h3>Employee List</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Employee Code</th>
+                    <th>Employee Name</th>
+                    <th>Employee Department</th>
+                    <th>Employee Email</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@item.Name</td>
+                        <td>@item.Department</td>
+                        <td>@item.Email</td>
+                    </tr>
+                }
+
+                @*<tr>
+            <td>@Model.Id</td>
+            <td>@Model.Name</td>
+            <td>@Model.Department</td>
+            <td>@Model.Email</td>
+        </tr>*@
+
+                @*<tr>
+            <td>1</td>
+            <td>John</td>
+            <td>IT</td>
+            <td>john@gmail.com</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Arpita</td>
+            <td>IT</td>
+            <td>arpita@gmail.com</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>Manish</td>
+            <td>IT</td>
+            <td>manisha@gmail.com</td>
+        </tr>*@
+
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

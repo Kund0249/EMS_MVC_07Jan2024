@@ -63,7 +63,25 @@ namespace EMS_MVC_07Jan2024.Controllers
             return View(data);
         }
 
-      
+        [HttpGet]
+        public ViewResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Create(DepartmentModel model)
+        {
+            if (_repository.Save(model, out string ErrorMessage))
+                return RedirectToAction("Index");
+            else
+            {
+                ViewBag.Message = ErrorMessage;
+                return View();
+            }
+        }
+
+
     }
 
 }

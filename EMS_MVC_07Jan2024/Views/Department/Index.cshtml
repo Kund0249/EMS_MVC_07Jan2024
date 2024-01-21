@@ -2,18 +2,20 @@
 
 @model List<EMS_MVC_07Jan2024.Models.Department.DepartmentModel>
 
-@{
-    Layout = null;
-}
+@*@{
+    Layout = "~/Views/Shared/MasterLayout.cshtml";
+}*@
 
-<!DOCTYPE html>
+@*<!DOCTYPE html>
 
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
+    <link href="~/ClientLib/css/bootstrap.css" rel="stylesheet" />
     <title>Index</title>
 </head>
-<body>
+<body>*@
+
     @*<div>
             <hr />
             <h3>Department Id   :  @Model.DepartmentId</h3>
@@ -22,13 +24,46 @@
             <hr />
         </div>*@
 
-    @foreach (var item in Model)
-    {
-        <hr />
-        <h3>Department Id   :  @item.DepartmentId</h3>
-        <h3>Department Code :  @item.DepartmentCode</h3>
-        <h3>Department Name :  @item.DepartmentName</h3>
-        <hr />
-    }
-</body>
-</html>
+    @*@foreach (var item in Model)
+        {
+            <hr />
+            <h3>Department Id   :  @item.DepartmentId</h3>
+            <h3>Department Code :  @item.DepartmentCode</h3>
+            <h3>Department Name :  @item.DepartmentName</h3>
+            <hr />
+        }*@
+
+    @*<div class="container-fluid">*@
+
+        <div class="row">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Department Code</th>
+                        <th>Department Name</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.DepartmentCode</td>
+                            <td>@item.DepartmentName</td>
+                            <td>
+                                <div class="btn-group" role="group">
+                                    <a href="#" class="btn btn-danger">Remove</a>
+                                    <a href="#" class="btn btn-primary">Edit</a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+    @*</div>*@
+   
+@*</body>
+</html>*@

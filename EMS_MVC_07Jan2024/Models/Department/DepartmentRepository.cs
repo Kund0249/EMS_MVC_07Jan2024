@@ -78,5 +78,39 @@ namespace EMS_MVC_07Jan2024.Models.Department
                 return list;
             }
         }
+
+        public bool Save(DepartmentModel model,out string ErrorMessage)
+        {
+            try
+            {
+                string StatusCode = string.Empty;
+                ErrorMessage = string.Empty;
+                using (SqlConnection con = new SqlConnection(CS))
+                {
+                    SqlCommand cmd = new SqlCommand("[spInsertDepartment]", con);
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@DeptCode", model.DepartmentCode);
+                    cmd.Parameters.AddWithValue("@DeptName", model.DepartmentName);
+
+                    con.Open();
+                    StatusCode = (string)cmd.ExecuteScalar();
+                    con.Close();
+                }
+
+                if (StatusCode == "S001")
+                    return true;
+                else
+                    ErrorMessage = "Record already exists!";
+
+                return false;
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage = ex.Message;
+                return false;
+            }
+        }
     }
+
 }

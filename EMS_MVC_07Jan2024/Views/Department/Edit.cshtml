@@ -1,0 +1,48 @@
+﻿@model EMS_MVC_07Jan2024.Models.Department.DepartmentModel
+
+
+<h2>Edit</h2>
+
+<div class="row mt-3">
+    <form method="post">
+        @Html.HiddenFor(x => x.DepartmentId)
+        <table>
+            <tr>
+                <th>Department Code</th>
+                <td>
+                    @*<input type="text" name="DepartmetCode" />*@
+                    @*@Html.TextBox("DepartmentCode")*@
+
+                    @Html.TextBoxFor(x => x.DepartmentCode)
+                </td>
+            </tr>
+            <tr>
+                <th>Department Name</th>
+                <td>
+                    @*<input type="text" name="DepartmentName" />*@
+                    @*@Html.TextBox("DepartmentName")*@
+
+                    @Html.TextBoxFor(x => x.DepartmentName)
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="submit" value="Save" />
+                </td>
+            </tr>
+        </table>
+        <span style="color:red">
+            @ViewBag.Message
+        </span>
+    </form>
+</div>
+
+@*@section Script{
+      <script>
+          var message = @(TempData["Message"] != null? Html.Raw(TempData["Message"]): Html.Raw("undefined"));
+          if (message) {
+              //console.log(message);
+              alert(message);
+          }
+      </script>
+    }*@

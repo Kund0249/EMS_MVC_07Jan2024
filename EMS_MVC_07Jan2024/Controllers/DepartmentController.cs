@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 using EMS_MVC_07Jan2024.Models.Department;
 
 namespace EMS_MVC_07Jan2024.Controllers
 {
-    public class DepartmentController : Controller
+   
+    public class DepartmentController : BaseController
     {
         private readonly DepartmentRepository _repository;
         public DepartmentController()
@@ -73,12 +75,65 @@ namespace EMS_MVC_07Jan2024.Controllers
         public ActionResult Create(DepartmentModel model)
         {
             if (_repository.Save(model, out string ErrorMessage))
+            {
+                Notification("Success", "Record Created Successfully", MessageType.success);
+                return RedirectToAction("Index");
+            } 
+            else
+            {
+                Notification("Success", ErrorMessage, MessageType.error);
+
+                return View();
+            }
+        }
+
+
+        [HttpGet]
+        public ActionResult Edit(int DepartmentID)
+        {
+            DepartmentModel model = _repository.GetDepartment(DepartmentID);
+            if (model != null)
+            {
+                return View(model);
+            }
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public ActionResult Edit(DepartmentModel model)
+        {
+            if (_repository.Update(model, out string ErrorMessage))
                 return RedirectToAction("Index");
             else
             {
-                ViewBag.Message = ErrorMessage;
+                Notification("Error Message", ErrorMessage,MessageType.error);
+                //var alertmessage = new
+                //{
+                //    MessageType = "error",
+                //    Message = ErrorMessage,
+                //    Title = "Error Message"
+                //};
+                //var JSSerlizer = new JavaScriptSerializer();
+                //TempData["Message"] = JSSerlizer.Serialize(alertmessage);
+                //ViewBag.Message = ErrorMessage;
                 return View();
             }
+        }
+
+        [HttpPost]
+        public ActionResult Delete(int DepartmentID)
+        {
+            //delete
+            if(_repository.Remove(DepartmentID,out string Message))
+            {
+                Notification("Success", "Record Delete Successfully", MessageType.success);
+            }
+            else
+            {
+                Notification("Error", "Record not Delete", MessageType.error);
+
+            }
+            return RedirectToAction("Index");
         }
 
 

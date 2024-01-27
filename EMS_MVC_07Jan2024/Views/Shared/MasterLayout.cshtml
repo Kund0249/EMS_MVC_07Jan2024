@@ -10,6 +10,13 @@
     <meta name="viewport" content="width=device-width" />
 
     <link href="~/ClientLib/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/ClientLib/toastr/toastr.min.css" rel="stylesheet" />
+
+
+    <script src="~/ClientLib/jquery/jquery.js"></script>
+    <script src="~/ClientLib/toastr/toastr.min.js"></script>
+
+
     <title>EMS</title>
 </head>
 <body>
@@ -35,5 +42,30 @@
     </div>
 
     @*footer*@
+
+    @RenderSection("Script", false)
+
+    <script>
+          var message = @(TempData["Message"] != null? Html.Raw(TempData["Message"]): Html.Raw("undefined"));
+        if (message) {
+
+            toastr[message.MessageType](message.Message, message.Title)
+              //switch (message.MessageType) {
+              //    case 'success':
+              //        toastr["success"]("Message", "Title")
+              //        break;
+              //    case 'error':
+              //        alert('success');
+              //        break;
+              //    case 'info':
+              //        alert('success');
+              //        break;
+              //    case 'warning':
+              //        alert('success');
+              //        break;
+              //    default:
+              //}
+          }
+    </script>
 </body>
 </html>

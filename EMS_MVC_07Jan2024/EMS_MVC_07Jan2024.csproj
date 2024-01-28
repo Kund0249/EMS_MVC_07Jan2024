@@ -105,8 +105,10 @@
     </Compile>
     <Compile Include="Models\Department\DepartmentModel.cs" />
     <Compile Include="Models\Department\DepartmentRepository.cs" />
+    <Compile Include="Models\Employee\EmployeeCreateModel.cs" />
     <Compile Include="Models\Employee\EmployeeModel.cs" />
     <Compile Include="Models\Employee\EmployeeRepository.cs" />
+    <Compile Include="Models\ExtensionMethod\ControllerExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -119,6 +121,7 @@
     <Content Include="Views\Shared\MasterLayout.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Department\Edit.cshtml" />
+    <Content Include="Views\Employee\Create.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -128,6 +131,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="EmpImage\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <PropertyGroup>

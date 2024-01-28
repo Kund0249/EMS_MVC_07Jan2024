@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data.SqlClient;
+using EMS_MVC_07Jan2024.Models.ExtensionMethod;
 
 
 namespace EMS_MVC_07Jan2024.Models.Employee

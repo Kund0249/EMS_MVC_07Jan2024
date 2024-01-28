@@ -1,0 +1,85 @@
+﻿@model EMS_MVC_07Jan2024.Models.Employee.EmployeeCreateModel
+
+
+<h2>Create</h2>
+
+<form method="post" enctype="multipart/form-data">
+
+
+    <div class="row mt-3">
+        <div class="col-md-5 offset-1">
+            <div class="mb-3">
+                <label class="form-label">Employee Name</label>
+                @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Employee Mob</label>
+                @Html.TextBoxFor(x => x.ContactNo, new { @class = "form-control" })
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Employee Email</label>
+                @Html.TextBoxFor(x => x.Email, new { @class = "form-control" })
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Employee Salary</label>
+                @Html.TextBoxFor(x => x.Salary, new { @class = "form-control" })
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Employee Image</label>
+                @Html.TextBoxFor(x => x.ProfileImage, new { @class = "form-control", type = "file" })
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="mb-3 input-group form-check-inline">
+                <label class="form-label">Employee Gender</label>
+                <div class="form-check form-switch">
+                    @Html.RadioButtonFor(x => x.Gender, "M", new { @class = "form-check-input" }) Male
+                </div>
+                <div class="form-check form-switch">
+                    @Html.RadioButtonFor(x => x.Gender, "F", new { @class = "form-check-input" }) Female
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Employee Department</label>
+                @*@Html.DropDownListFor(x => x.DepartmentId, new List<SelectListItem>()
+          {
+                 new SelectListItem(){Text="Department Manager",Value="1"},
+                  new SelectListItem(){Text="Finance & Account",Value="2"},
+                   new SelectListItem(){Text="Brokerage Manager",Value="3"},
+                  new SelectListItem(){Text="System Admin",Value="4"}
+          }
+        , "Select Department", new { @class = "form-control" })*@
+
+                @Html.DropDownListFor(x => x.DepartmentId,Model.Departments
+               , "Select Department", new { @class = "form-control" })
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Employee DOJ</label>
+                @Html.TextBoxFor(x => x.DOJ, new { @class = "form-control", type = "Date" })
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Employee Account</label>
+                @Html.TextBoxFor(x => x.AccountNo, new { @class = "form-control" })
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Confirm Account</label>
+                @Html.TextBoxFor(x => x.CnfAccountNo, new { @class = "form-control" })
+            </div>
+            @*<div class="mb-3">
+                    <label class="form-label">Employee Hobbies</label>
+
+                    @foreach (var item in Model.Hobbies)
+                    {
+                        @item.Text
+                        <input type="checkbox" name="Hobbies" />
+                    }
+                </div>*@
+        </div>
+
+    </div>
+
+    <input type="submit" value="Save" class="btn btn-primary" />
+</form>
+

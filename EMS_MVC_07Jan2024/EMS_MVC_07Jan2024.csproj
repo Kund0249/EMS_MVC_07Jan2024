@@ -109,6 +109,7 @@
     <Compile Include="Models\Employee\EmployeeModel.cs" />
     <Compile Include="Models\Employee\EmployeeRepository.cs" />
     <Compile Include="Models\ExtensionMethod\ControllerExtension.cs" />
+    <Compile Include="Models\ExtensionMethod\ConvertListString.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

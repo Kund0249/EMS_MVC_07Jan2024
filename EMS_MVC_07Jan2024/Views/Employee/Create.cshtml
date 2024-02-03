@@ -11,18 +11,22 @@
             <div class="mb-3">
                 <label class="form-label">Employee Name</label>
                 @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.Name,null,new {@class="text-danger" })
             </div>
             <div class="mb-3">
                 <label class="form-label">Employee Mob</label>
                 @Html.TextBoxFor(x => x.ContactNo, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.ContactNo, null, new { @class = "text-danger" })
             </div>
             <div class="mb-3">
                 <label class="form-label">Employee Email</label>
                 @Html.TextBoxFor(x => x.Email, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.Email, null, new { @class = "text-danger" })
             </div>
             <div class="mb-3">
                 <label class="form-label">Employee Salary</label>
                 @Html.TextBoxFor(x => x.Salary, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.Salary, null, new { @class = "text-danger" })
             </div>
             <div class="mb-3">
                 <label class="form-label">Employee Image</label>
@@ -51,31 +55,38 @@
           }
         , "Select Department", new { @class = "form-control" })*@
 
-                @Html.DropDownListFor(x => x.DepartmentId,Model.Departments
+                @Html.DropDownListFor(x => x.DepartmentId, Model.Departments
                , "Select Department", new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.DepartmentId, null, new { @class = "text-danger" })
             </div>
 
             <div class="mb-3">
                 <label class="form-label">Employee DOJ</label>
                 @Html.TextBoxFor(x => x.DOJ, new { @class = "form-control", type = "Date" })
+                @Html.ValidationMessageFor(x => x.DOJ)
             </div>
             <div class="mb-3">
                 <label class="form-label">Employee Account</label>
                 @Html.TextBoxFor(x => x.AccountNo, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.AccountNo, null, new { @class = "text-danger" })
             </div>
             <div class="mb-3">
                 <label class="form-label">Confirm Account</label>
                 @Html.TextBoxFor(x => x.CnfAccountNo, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.CnfAccountNo, null, new { @class = "text-danger" })
             </div>
-            @*<div class="mb-3">
-                    <label class="form-label">Employee Hobbies</label>
+            <div class="mb-3">
+                <label class="form-label">Employee Departments</label>
 
-                    @foreach (var item in Model.Hobbies)
-                    {
-                        @item.Text
-                        <input type="checkbox" name="Hobbies" />
-                    }
-                </div>*@
+                @foreach (var item in Model.Departments)
+                {
+            <div class="form-check form-check-inline">
+                <input type="radio" Groupname="Department" name="CheckBoxOptions" value="@item.Text" />
+                <label class="form-check-label">@item.Text</label>
+            </div>
+                }
+
+            </div>
         </div>
 
     </div>

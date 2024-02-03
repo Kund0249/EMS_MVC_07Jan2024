@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using EMS_MVC_07Jan2024.Models.Employee;
+using EMS_MVC_07Jan2024.Models.ExtensionMethod;
 
 namespace EMS_MVC_07Jan2024.Controllers
 {
@@ -30,13 +31,19 @@ namespace EMS_MVC_07Jan2024.Controllers
         [HttpPost]
         public ActionResult Create(EmployeeCreateModel model)
         {
-            if(model.ProfileImage != null)
+
+            if (ModelState.IsValid)
             {
-                //EmpImage
-                string filename = Guid.NewGuid().ToString() + "_" + model.ProfileImage.FileName;
-                model.ProfileImage.SaveAs(Server.MapPath("~/EmpImage/") + filename);
+                string commasepvalues = model.CheckBoxOptions.ListToString("|");
+                if (model.ProfileImage != null)
+                {
+                    //EmpImage
+                    string filename = Guid.NewGuid().ToString() + "_" + model.ProfileImage.FileName;
+                    model.ProfileImage.SaveAs(Server.MapPath("~/EmpImage/") + filename);
+                }
+                return RedirectToAction("Index");
             }
-            return RedirectToAction("Index");
+            return View(model);
         }
     }
 }

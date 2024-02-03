@@ -4,28 +4,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 
 namespace EMS_MVC_07Jan2024.Models.Employee
 {
-  public  class Hobbi
-    {
-        public string Text { get; set; }
-        public string Value { get; set; }
-        public bool IsSelected { get; set; }
-    }
+ 
     public class EmployeeCreateModel
     {
         public EmployeeCreateModel()
         {
-            Hobbies = new List<Hobbi>()
-            {
-                 new Hobbi(){Text="Music",Value="1",IsSelected=false},
-                 new Hobbi(){Text="Reading",Value="2",IsSelected=false},
-                 new Hobbi(){Text="Chess",Value="3",IsSelected=false},
-                 new Hobbi(){Text="Watching",Value="4",IsSelected=false},
-            };
-
            var data =  new DepartmentRepository().GetDepartments;
             Departments = new List<SelectListItem>();
             foreach (var item in data)
@@ -38,21 +26,45 @@ namespace EMS_MVC_07Jan2024.Models.Employee
             }
         }
         public int Id { get; set; }
+
+        [Required(ErrorMessage ="Name is mandatory")]
+        [RegularExpression("[a-zA-Z\\s]*",ErrorMessage ="only alphabets allowed")]
+        [StringLength(20,ErrorMessage ="Maximum 20 char allowed")]
         public string Name { get; set; }
+
+        [Required]
         public string Gender { get; set; }
+
+        [Required]
         public int DepartmentId { get; set; }
+
+        [Required]
+        [EmailAddress]
         public string Email { get; set; }
+
+        [Required]
+        [RegularExpression("[0-9]{10,22}")]
         public string AccountNo { get; set; }
+
+        [Required]
+        [System.ComponentModel.DataAnnotations.Compare("AccountNo")]
         public string CnfAccountNo { get; set; }
+
+        [Required]
+        [Range(20000,200000)]
         public int Salary { get; set; }
+
+        [Required]
         public string ContactNo { get; set; }
+
+        [Required]
         public DateTime DOJ { get; set; }
         public bool IsActive { get; set; }
-
-        public List<Hobbi> Hobbies { get; set; }
 
         public HttpPostedFileBase ProfileImage { get; set; }
 
         public List<SelectListItem> Departments { get; set; }
+
+        public List<string> CheckBoxOptions { get; set;}
     }
 }

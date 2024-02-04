@@ -17,7 +17,7 @@
     <script src="~/ClientLib/toastr/toastr.min.js"></script>
 
 
-    <title>EMS</title>
+    <title>@ViewBag.Title</title>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -31,6 +31,21 @@
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="#">Home</a>
                     </li>
+                    @if (HttpContext.Current.User.Identity.IsAuthenticated)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link active" style="text-decoration:none" href="#">
+                                <strong>Welcome - @HttpContext.Current.User.Identity.Name</strong>
+                            </a>
+                        </li>
+                    <li class="nav-item">
+                            <a class="nav-link" style="text-decoration:none" href="#">
+                                @using (Html.BeginForm("Logout","Account",FormMethod.Post)) { 
+                                  <input type="submit" value="Logout" class="btn btn-sm btn-danger" />
+                                }
+                            </a>
+                        </li>
+                    }
                 </ul>
 
             </div>
@@ -45,27 +60,7 @@
 
     @RenderSection("Script", false)
 
-    <script>
-          var message = @(TempData["Message"] != null? Html.Raw(TempData["Message"]): Html.Raw("undefined"));
-        if (message) {
+    @Html.Partial("_Notification")
 
-            toastr[message.MessageType](message.Message, message.Title)
-              //switch (message.MessageType) {
-              //    case 'success':
-              //        toastr["success"]("Message", "Title")
-              //        break;
-              //    case 'error':
-              //        alert('success');
-              //        break;
-              //    case 'info':
-              //        alert('success');
-              //        break;
-              //    case 'warning':
-              //        alert('success');
-              //        break;
-              //    default:
-              //}
-          }
-    </script>
 </body>
 </html>

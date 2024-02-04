@@ -36,6 +36,21 @@
 @*<div class="container-fluid">*@
 
 <div>
+    @*<ol>
+        @foreach (var item in ViewBag.mydata)
+        {
+            <li>@item</li>
+        }
+    </ol>
+
+    <hr />
+    <ul>
+        @foreach (var item in (List<string>)ViewData["Msg"])
+        {
+            <li>@item</li>
+        }
+    </ul>*@
+
     <h3>
         @Html.ActionLink("Create", "Create", null, new { @class = "btn btn-primary" })
     </h3>
@@ -84,3 +99,5 @@
 
 @*</body>
     </html>*@
+
+ 

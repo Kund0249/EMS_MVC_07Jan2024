@@ -8,7 +8,8 @@ using EMS_MVC_07Jan2024.Models.Department;
 
 namespace EMS_MVC_07Jan2024.Controllers
 {
-   
+    
+    [Authorize]
     public class DepartmentController : BaseController
     {
         private readonly DepartmentRepository _repository;
@@ -22,6 +23,7 @@ namespace EMS_MVC_07Jan2024.Controllers
         //    return "Hello from Department Controller";
         //}
 
+        [OutputCache(Duration =30)]
         public ViewResult Index()
         {
             //object data = "Hello from Department Controller";
@@ -60,8 +62,19 @@ namespace EMS_MVC_07Jan2024.Controllers
             //};
 
             //return View(list);
-
+            ViewBag.Title = "EMS-Department";
             var data = _repository.GetDepartments;
+
+            //both ViewBag and ViewData are used to send the data from Controller Action to View
+
+            //dynamic
+            //auto resolve the type at run time in case of complex object
+            //ViewBag.mydata = new List<string>() {"ViewBag-1","ViewBag-2","ViewBag-3" };
+
+            //key value pair : dictionary
+            //need to conver the type explicitly in case of complex object
+            //ViewData["Msg"] = new List<string>() { "ViewData-1", "ViewData-2", "ViewData-3" };
+
             return View(data);
         }
 
@@ -78,7 +91,7 @@ namespace EMS_MVC_07Jan2024.Controllers
             {
                 Notification("Success", "Record Created Successfully", MessageType.success);
                 return RedirectToAction("Index");
-            } 
+            }
             else
             {
                 Notification("Success", ErrorMessage, MessageType.error);
@@ -103,19 +116,21 @@ namespace EMS_MVC_07Jan2024.Controllers
         public ActionResult Edit(DepartmentModel model)
         {
             if (_repository.Update(model, out string ErrorMessage))
+            {
+                //var JS = new JavaScriptSerializer();
+                //var toastr = new
+                //{
+                //    Title = "Success Message",
+                //    Message = model.DepartmentCode + " Updated!",
+                //    MessageType = "success"
+                //};
+                ////TempData["Message"] = JS.Serialize(model.DepartmentCode + " Updated!");
+                //TempData["Message"] = JS.Serialize(toastr);
+                Notification("Success Message",model.DepartmentCode + " Updated!",MessageType.success);
                 return RedirectToAction("Index");
+            }
             else
             {
-                Notification("Error Message", ErrorMessage,MessageType.error);
-                //var alertmessage = new
-                //{
-                //    MessageType = "error",
-                //    Message = ErrorMessage,
-                //    Title = "Error Message"
-                //};
-                //var JSSerlizer = new JavaScriptSerializer();
-                //TempData["Message"] = JSSerlizer.Serialize(alertmessage);
-                //ViewBag.Message = ErrorMessage;
                 return View();
             }
         }
@@ -124,7 +139,7 @@ namespace EMS_MVC_07Jan2024.Controllers
         public ActionResult Delete(int DepartmentID)
         {
             //delete
-            if(_repository.Remove(DepartmentID,out string Message))
+            if (_repository.Remove(DepartmentID, out string Message))
             {
                 Notification("Success", "Record Delete Successfully", MessageType.success);
             }

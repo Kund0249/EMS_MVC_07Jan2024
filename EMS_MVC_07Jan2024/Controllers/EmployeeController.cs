@@ -8,6 +8,8 @@ using EMS_MVC_07Jan2024.Models.ExtensionMethod;
 
 namespace EMS_MVC_07Jan2024.Controllers
 {
+
+    //[HandleError] //Filter at Controller level
     public class EmployeeController : BaseController
     {
         private readonly EmployeeRepository _repository;
@@ -16,9 +18,12 @@ namespace EMS_MVC_07Jan2024.Controllers
         {
             _repository = new EmployeeRepository();
         }
+
+        //[HandleError] //Filter at Action level
         public ViewResult Index()
         {
-           var list = _repository.GetEmployees();
+            throw new Exception("My custome Error");
+            var list = _repository.GetEmployees();
             return View(list);
         }
 

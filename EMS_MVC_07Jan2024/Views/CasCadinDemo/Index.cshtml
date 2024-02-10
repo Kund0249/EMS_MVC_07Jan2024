@@ -1,0 +1,62 @@
+﻿@model EMS_MVC_07Jan2024.Controllers.WrapperStateCity
+
+<form method="post" name="myform">
+    <div class="row">
+        <div class="col-md-6">
+            <table>
+                <tr>
+                    <th>Select State</th>
+                    <td>
+                        @Html.DropDownListFor(x => x.selectedState, new SelectList(Model.States, "StateId", "StateName"), "Select State")
+                        @Html.HiddenFor(x => x.selectedState)
+                    </td>
+                </tr>
+                <tr>
+                    <th>Select City</th>
+                    <td>
+                        @Html.DropDownListFor(x => x.SelectedCity, new SelectList(Model.cities, "CityId", "CityName"), "Select City")
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</form>
+
+
+@section Script{
+    
+    <script>
+
+
+        $(document).ready(function () {
+            $("#selectedState").on("change", function () {
+                //document.forms["myform"].submit();
+                var Id = $("#selectedState").val();
+
+                $.ajax({
+                    url: "/CasCadinDemo/GetCity",
+                    data: {StateId: Id},
+                    success: function (result) {
+                        //alert('success');
+                        //alert(result)
+                        //var data = JSON.parse(result);
+                        //alert(data);
+                        $("#SelectedCity").empty();
+                        var citylist = '';
+                        $(result).each(function (index, data) {
+                            citylist += '<option value = "' + data.CityId + '">';
+                            citylist += data.CityName;
+                            citylist += '</option>'
+                        });
+                        //alert(citylist);
+                        $("#SelectedCity").append(citylist);
+                    },
+                    error: function (err) {
+                        alert(JSON.stringify(err));
+                    }
+                });
+            });
+        })
+    </script>
+    
+    }

@@ -11,8 +11,10 @@ namespace EMS_MVC_07Jan2024.Models.Department
     public class DepartmentRepository
     {
         String CS = string.Empty;
+        private DataContext Context;
         public DepartmentRepository()
         {
+            Context = new DataContext();
             CS = ConfigurationManager.ConnectionStrings["DBCon"].ConnectionString;
         }
         public List<DepartmentModel> GetDepartments
@@ -42,40 +44,41 @@ namespace EMS_MVC_07Jan2024.Models.Department
                 //        }
                 //};
 
-                List<DepartmentModel> list = null;
+                //List<DepartmentModel> list = null;
 
 
-                using(SqlConnection con = new SqlConnection(CS))
-                {
-                    DataTable table = new DataTable();
+                //using(SqlConnection con = new SqlConnection(CS))
+                //{
+                //    DataTable table = new DataTable();
 
-                    SqlCommand cmd = new SqlCommand("spGetAllDepartments", con);
-                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                //    SqlCommand cmd = new SqlCommand("spGetAllDepartments", con);
+                //    cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
-                    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-                    adapter.Fill(table);
+                //    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                //    adapter.Fill(table);
 
-                    if(table != null)
-                    {
-                        if(table.Rows.Count > 0)
-                        {
-                            list =  new List<DepartmentModel>();
+                //    if(table != null)
+                //    {
+                //        if(table.Rows.Count > 0)
+                //        {
+                //            list =  new List<DepartmentModel>();
 
-                            foreach (DataRow item in table.Rows)
-                            {
-                                list.Add(new DepartmentModel()
-                                {
-                                    DepartmentId = Convert.ToInt32(item["DepartmentId"]),
-                                    DepartmentName = item["DepartmentName"].ToString(),
-                                    DepartmentCode = item["DepartmentCode"].ToString()
-                                });
-                            }
-                        }
-                    }
+                //            foreach (DataRow item in table.Rows)
+                //            {
+                //                list.Add(new DepartmentModel()
+                //                {
+                //                    DepartmentId = Convert.ToInt32(item["DepartmentId"]),
+                //                    DepartmentName = item["DepartmentName"].ToString(),
+                //                    DepartmentCode = item["DepartmentCode"].ToString()
+                //                });
+                //            }
+                //        }
+                //    }
 
-                }
+                //}
 
-                return list;
+                //return list;
+                return Context.Departments.ToList();
             }
         }
 
@@ -153,20 +156,30 @@ namespace EMS_MVC_07Jan2024.Models.Department
             {
                 string StatusCode = string.Empty;
                 ErrorMessage = string.Empty;
-                using (SqlConnection con = new SqlConnection(CS))
+                //using (SqlConnection con = new SqlConnection(CS))
+                //{
+                //    SqlCommand cmd = new SqlCommand("[spRemoveDepartment]", con);
+                //    cmd.CommandType = CommandType.StoredProcedure;
+
+                //    cmd.Parameters.AddWithValue("@DepartmentId", DepartmentId);
+
+                //    con.Open();
+                //    StatusCode = (string)cmd.ExecuteScalar();
+                //    con.Close();
+                //}
+
+                //if (StatusCode == "S001")
+                //    return true;
+                //else
+                //    ErrorMessage = "Record not found!";
+
+                DepartmentModel model = Context.Departments.SingleOrDefault(x => x.DepartmentId == DepartmentId);
+                if(model != null)
                 {
-                    SqlCommand cmd = new SqlCommand("[spRemoveDepartment]", con);
-                    cmd.CommandType = CommandType.StoredProcedure;
-
-                    cmd.Parameters.AddWithValue("@DepartmentId", DepartmentId);
-
-                    con.Open();
-                    StatusCode = (string)cmd.ExecuteScalar();
-                    con.Close();
-                }
-
-                if (StatusCode == "S001")
+                    Context.Departments.Remove(model);
+                    Context.SaveChanges();
                     return true;
+                }
                 else
                     ErrorMessage = "Record not found!";
 

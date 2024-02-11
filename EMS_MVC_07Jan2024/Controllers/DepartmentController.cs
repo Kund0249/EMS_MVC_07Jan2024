@@ -9,7 +9,7 @@ using EMS_MVC_07Jan2024.Models.Department;
 namespace EMS_MVC_07Jan2024.Controllers
 {
     
-    [Authorize]
+    [AllowAnonymous]
     public class DepartmentController : BaseController
     {
         private readonly DepartmentRepository _repository;
